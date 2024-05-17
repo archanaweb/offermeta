@@ -1,0 +1,120 @@
+
+.links-container .row {
+  display: flex;
+  flex-wrap: wrap; /* Allows the row to wrap if it exceeds container width */
+}
+
+.links-container .col-1 {
+  flex: 1; /* Equal width columns */
+  max-width: 100px; /* You can adjust this width based on your layout */
+  margin: 5px; /* Add any margin you need between the columns */
+}
+
+.links-container .col-1 a {
+  white-space: nowrap; /* Prevents the links from breaking words */
+  padding: 5px 10px; /* Add padding to style the links */
+  text-decoration: none;
+  color: #333; /* Add any color you need for the links */
+}
+.container{
+  border-style: 1px solid (0,0,0,0.15px);
+  border-color: black;
+  font-display: flex;
+  flex: 1;
+}
+
+.table-container {
+    margin: 0 auto;
+    padding: 20px;
+    border-style: 1px solid (0,0,0,0.15px);
+    border-color: black;
+  }
+  
+ 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #7b88fd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #7e83af;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .links-container {
+    margin-top: 20px;
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 10px;
+  }
+  
+  .links-container a {
+    margin-right: 10px;
+  }
+  
+  .select-fields-container {
+    margin-top: 20px;
+  }
+/*   
+  input[type="text"],
+  select {
+    width: 100px;
+    padding: 5px;
+  } */
+  .select-fields-container {
+    margin-top: 20px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .row > * {
+    margin-right: 10px;
+    
+  }
+  
+  
+  .d-flex {
+    display: flex;
+  }
+  
+  .justify-content-end {
+    justify-content: flex-end;
+  }
+  
+  .containerdate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .date-field {
+    /* flex: 1; */
+    display: flex;
+    align-items: left;
+    width: 12em;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 10px; /* Adjust the gap as needed */
+  }
+  
+  .button {
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #d0d0d0;
+  }
+  

@@ -1,0 +1,52 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.sear{
+  background-color: #fcf9f9;
+  width: -webkit-fill-available;
+}
+.user{
+  color:#fcf9f9;
+  font-size: 20px;
+}
+.Dashboard{
+  display: flex;
+  /* justify-content: end; */
+  margin-top: -5px;
+  color:#ee0f0f;
+}
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.search-input {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+  /* input[type="text"], select {
+    width: 100px;
+  } */
+
+.Performance {
+  font-size: 25px;
+}

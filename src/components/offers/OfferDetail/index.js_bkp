@@ -1,0 +1,300 @@
+import React, { useEffect, useState } from "react";
+import Sidebar from "../../Sidebar";
+import Navbar from "../../navbar";
+import PageTitle from "../../PageTitle";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { fetchOfferDetail } from "../../../Redux/OffersSlice";
+import { updateOffer } from "../../../Redux/OffersSlice";
+import { toast } from "react-toastify";
+import LandingPage from "./LandingPage";
+import TrackingUrl from "./TrackingUrl";
+import ConversionUrl from "./ConversionUrl";
+import ImpressionUrl from "./ImpressionUrl";
+import { fetchAdvertiserList } from "../../../Redux/AdvertiserSlice";
+import EventPostback from "./EventPostback";
+import SendOffer from "./SendOffer";
+
+const OfferDetails = ()=> {
+
+    const {id} = useParams()
+    const [isEditable, setIsEditable] =  useState(false);
+    const [publisherId, setPublisherId] = useState()
+    const [formData, setFormData]  = useState({})
+    const [imageFile, setImageFile] = useState(null);
+    const dispatch =  useDispatch()
+
+    const offerDetail = useSelector((state)=> state.offers.detail);
+    const advertiser = useSelector((state)=> state.advertiser.list);
+    const loggedInUser = JSON.parse(localStorage.getItem('userData'))
+
+    useEffect(()=> {
+        setFormData({...offerDetail,...formData})
+    },[offerDetail])
+
+    useEffect(()=> {
+        dispatch(fetchOfferDetail(id))
+        dispatch(fetchAdvertiserList(loggedInUser._id))
+        console.log(url.searchParams.get("edit")); 
+        if(url.searchParams.get("edit") === '1'){
+            setIsEditable(true);
+        }
+    },[])
+    useEffect(()=> {
+        console.log("offerdetailsEvent>><<", offerDetail?.event)
+    },[offerDetail])
+
+    const trackingPublisherId = (pubId)=>{
+        setPublisherId(pubId)
+    }
+    var url_string = window.location.href; 
+    var url = new URL(url_string);
+
+
+    const handleInput= (e)=> {
+        const FormData = {};
+        const elementName = e.target.name;
+        const elementValue = e.target.value;
+        FormData[elementName] = elementValue;
+        setFormData({...formData, ...FormData});    
+    }
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        console.log("image",file)
+        setImageFile(file);
+      };
+    const handleSubmit = async (e)=> {
+        e.preventDefault()
+        console.log("Update formData",FormData)
+        const form = new FormData();
+        form.append('image', imageFile);
+        form.append('title', formData.title);
+        form.append('advertiserId',formData.advertiserId);
+        form.append('privacyLavel', formData.privacyLavel);
+        form.append('Description', formData.Description);
+        form.append('category', formData.category);
+        form.append('vertical', formData.vertical);
+        form.append('traffic', formData.traffic);
+        form.append('operatingSystem', formData.operatingSystem);
+        form.append('incentive', formData.incentive);
+        form.append('status', formData.status);
+        const updateOfferResponse = await dispatch(updateOffer({
+            offerId: id,
+            formData: form
+        }));;
+        const res = updateOfferResponse.payload;
+        // console.log("uppdate data",updateFormData)
+            if(res?.responseCode === 200){
+                toast.success(res?.responseMessage)
+                setIsEditable(false)
+            }else{
+                toast.error(res?.responseMessage || 'something went wrong');
+            }
+    }
+    return (
+        <>
+        <div className='Container_card'>
+            <Sidebar>
+                <Navbar />
+                <div className='page_sec'>
+                        {/* <h3 className="mt-4 mb-2 px-4">{offerDetail?.title}</h3> */}
+                        <div className="container-fluid mt-4">
+                            <div className="row">
+                                <div className="col-lg-6">
+                                <form className="" onSubmit={handleSubmit}>
+                                    <div className="offersData">
+                                        <div className="pb-2 mb-2 d-flex justify-content-between align-items-center border-b">
+                                            <div className="d-flex justify-content-start align-items-center gap-1">
+                                                <h4>{offerDetail?.title}</h4>
+                                                {/* {offerDetail.privacyLavel === 'Required Aprooval' && <button className="btn btn-danger btn-sm">Request Offer</button>} */}
+                                            </div>
+                                            {isEditable ? 
+                                            <div>
+                                                <button type="submit" className="btn btn-primary btn-sm me-2">Save</button>
+                                                <button type="button" className="btn btn-outline-secondary btn-sm" onClick={()=> setIsEditable(false)}>Cancel</button>
+                                            </div> : 
+                                                <button className="btn btn-outline-secondary btn-sm" onClick={()=> setIsEditable(true)}>Edit</button> }
+                                            
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Title:</p>
+                                            {!isEditable ?
+                                            <span>{offerDetail?.title}</span>
+                                                :
+                                                <input className="form-control" type="text" name="title" value={formData?.title} onChange={(e)=>handleInput(e)} />
+                                            }
+                                            
+                                        </div>
+                                        {!isEditable &&<div className="offersDataItem">
+                                            <p>Id:</p>
+                                        
+                                                <span>{offerDetail?._id}</span> 
+                                        </div>}
+                                       <div className="offersDataItem">
+                                            <p>Image:</p>
+                                            {!isEditable ? <img src={offerDetail?.image} alt="Offer Img"/> :
+                                             <>
+                                             {/* <img src={offerDetail?.image} alt="Offer Img" /> */}
+                                                <input
+                                                className="form-control"
+                                                type="file"
+                                                id="image"
+                                                name="image"
+                                                accept="image/*"
+                                                onChange={handleImageChange}
+                                                required
+                                            />
+                                         </>
+                                            }
+                                        </div>
+                                        
+                                        <div className="offersDataItem">
+                                            <p>Status:</p>
+                                            <div>
+                                            {!isEditable ?
+                                                <span className={offerDetail?.status === "ACTIVE" ? 'statusBtn' : 'statusInactive'}>{offerDetail?.status}</span>
+                                                :
+                                                <select className="form-control" name="status" value={formData?.status} onChange={(e)=>handleInput(e)}>
+                                                <option value="none" hidden>Select</option>
+                                                <option>ACTIVE</option>
+                                                <option>INACTIVE</option>
+                                            </select>  
+                                            }
+                                            </div>
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Advertiser:</p>
+                                            {!isEditable ?
+                                            <span>{`(ID: ${offerDetail?.advertiserId}) ${offerDetail?.advertiserFirstName} ${offerDetail?.advertiserLastName}`}</span>
+                                                :
+                                                <select className="form-control"
+                                                name="advertiserId"
+                                                onChange={(e)=>handleInput(e)}
+                                                value={formData?.advertiserId}
+                                                >
+                                                    <option value="none" hidden>Select advertiser</option>
+                                                    {advertiser ?.map((item)=> <option key={item.id}>{item._id}</option>)}
+                                                </select>
+                                            }
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Privacy level:</p>
+                                            <div>
+                                            {!isEditable ?
+                                                <span>{offerDetail?.privacyLavel}</span>
+                                                :
+                                                <select className="form-control" name="privacyLavel" value={formData?.privacyLavel} onChange={(e)=>handleInput(e)}>
+                                                    <option value="none" hidden>Select</option>
+                                                <option>Public</option>
+                                                <option>Private</option>
+                                                <option>Required Aprooval</option>
+                                            </select>  
+                                            }
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="offersDataItem">
+                                            <p>Description:</p>
+                                            {!isEditable ?
+                                                <span>{offerDetail?.Description}</span>
+                                                :
+                                                <input className="form-control" type="text" name="Description" value={formData?.Description} onChange={(e)=>handleInput(e)} />
+                                            }
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Category:</p>
+                                            {!isEditable ?
+                                            <span>{offerDetail?.category}</span>
+                                                :
+                                                <input className="form-control" type="text" name="category" value={formData?.category} onChange={(e)=>handleInput(e)} />
+                                            }
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Vertical:</p>
+                                            {!isEditable ?
+                                            <span>{offerDetail?.vertical}</span>
+                                                :
+                                                <input className="form-control" type="text" name="vertical" value={formData?.vertical} onChange={(e)=>handleInput(e)} />
+                                            }
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Traffic:</p>
+                                            {!isEditable ?
+                                            <span>{offerDetail?.traffic}</span>
+                                                :
+                                                <input className="form-control" type="text" name="traffic" value={formData?.traffic} onChange={(e)=>handleInput(e)} />
+                                            }
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Operating System:</p>
+                                            {!isEditable ?
+                                            <span>{offerDetail?.operatingSystem}</span>
+                                                :
+                                                <input className="form-control" type="text" name="operatingSystem" value={formData?.operatingSystem} onChange={(e)=>handleInput(e)} />
+                                            }
+                                        </div>
+                                        <div className="offersDataItem">
+                                            <p>Incentive:</p>
+                                            {!isEditable ?
+                                            <span>{offerDetail?.incentive}</span>
+                                                :
+                                                <input className="form-control" type="text" name="incentive" value={formData?.incentive} onChange={(e)=>handleInput(e)} />
+                                            }
+                                        </div>
+                                    </div>
+                                    </form>
+                                    <div className="offersData mt-4">
+                                    <div className="pb-2 mb-2 d-flex justify-content-between align-items-center border-b">
+                                                <h3>Revenue & Event Value</h3>
+                                                <Link to={`/eventValue?offerid=${id}`}  className="btn btn-outline-secondary btn-sm">Manage</Link>
+                                    </div>
+
+                                    <div className="table-responsive">
+                                        <table className="table">
+                                            <thead>
+                                                <tr>
+                                                 
+                                                    <th>Event Value</th>
+                                                    <th>Type</th>
+                                                    <th>Revenue</th>
+                                                    <th>Payout</th>
+                                                    <th>Id</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {offerDetail?.event.map((item)=>  <tr>
+
+                                                    <td>{item?.eventValue}</td>
+                                                    <td>{item?.eventType}</td>
+                                                    <td>{item?.revenue}</td>
+                                                    <td>{item?.payout}</td>
+                                                    <td>{item?._id}</td>
+                                                </tr>)}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                               {!isEditable && <> 
+                               <div className="mt-4">
+                                {offerDetail?.privacyLavel !== 'Required Aprooval' && <EventPostback  offerId={id}/>}
+                                </div> 
+                                <div className="mt-4">
+                                     <SendOffer  offerId={id}/> 
+                                 </div> </>}
+                                </div>
+                                {!isEditable && <div className="col-lg-6">
+                                    {offerDetail?.privacyLavel !== 'Required Aprooval' && <TrackingUrl offerId={id} trackingPublisherId={trackingPublisherId}/>}
+                                    {offerDetail?.privacyLavel !== 'Required Aprooval' && <ImpressionUrl offerId={id} />}
+                                    {offerDetail?.privacyLavel !== 'Required Aprooval' && <LandingPage />}
+                                    <div className="mt-4"></div>
+                                    {offerDetail?.privacyLavel !== 'Required Aprooval' && <ConversionUrl offerId={id} publisherId={publisherId}/>}
+                                </div>}
+                            </div>
+                        </div>
+                </div>
+            </Sidebar>
+        </div>
+        </>
+    )
+}
+export default OfferDetails

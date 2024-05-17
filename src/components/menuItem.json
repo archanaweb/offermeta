@@ -1,0 +1,82 @@
+
+{
+    "managerMenuItem": [
+        {
+          "path": "affiliates/manager/dashboard",
+          "name": "Dashboard",
+          "icon": "FiGrid"
+        },
+        {
+          "path": "affiliates/manager/offer",
+          "name": "Offer",
+          "icon": "FaBullhorn"
+        },
+        {
+          "path": "affiliates/manager/publishers",
+          "name": "Publisher",
+          "icon": "FaUsers"
+        },
+        {
+          "path": "affiliates/manager/performance",
+          "name": "Performance",
+          "icon": "FaArrowLine"
+        },
+        {
+          "path": "affiliates/manager/conversion",
+          "name": "Conversion",
+          "icon": "FaChartLine"
+        },
+        {
+          "path": "affiliates/manager/impression",
+          "name": "Impression",
+          "icon": "MdAutoGraph"
+        },
+        {
+          "path": "affiliates/manager/payments",
+          "name": "Payments",
+          "icon": "FaMoneyBills"
+        },
+        {
+          "path": "affiliates/manager/postback",
+          "name": "Postback",
+          "icon": "LuServerCrash"
+        }
+      ],
+      "advertiserMenuItem": [
+        {
+          "path": "advertiser/manager/dashboard",
+          "name": "Dashboard",
+          "icon": "FiGrid"
+        },
+        {
+          "path": "advertiser/manager/offer",
+          "name": "Offer",
+          "icon": "FaBullhorn"
+        },
+        {
+          "path": "advertiser/manager/advertiserList",
+          "name": "Advertiser",
+          "icon": "FaUsers"
+        },
+        {
+          "path": "advertiser/manager/clicks",
+          "name": "Click",
+          "icon": "FaUserNurse"
+        },
+        {
+          "path": "advertiser/manager/conversion",
+          "name": "Conversion",
+          "icon": "FaChartLine"
+        },
+        {
+          "path": "advertiser/manager/performance",
+          "name": "Performance",
+          "icon": "FaChartLine"
+        },
+        {
+          "path": "advertiser/manager/impression",
+          "name": "Impression",
+          "icon": "MdAutoGraph"
+        }
+      ]
+  }

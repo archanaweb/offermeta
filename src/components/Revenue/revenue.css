@@ -1,0 +1,22 @@
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-style:none;
+}
+  
+ 
+
+  
+  
+  .card-image {
+    /* Image styles */
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-content {
+    /* Content styles */
+    padding: 10px;
+  }
+  

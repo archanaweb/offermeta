@@ -1,0 +1,14 @@
+#editbutton {
+    width:15%;
+    background-color: aliceblue;
+    color: black;
+    font-size: 10px;
+    border: 1px solid;
+}
+#copybutton {
+    width:15%;
+    background-color: aliceblue;
+    color: black;
+    font-size: 10px;
+    border: 1px solid;  
+}

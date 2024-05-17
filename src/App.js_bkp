@@ -1,0 +1,279 @@
+import React, { useEffect } from 'react';
+import './App.css';
+import './index.css';
+import { BrowserRouter, Route, Router, Routes, json } from 'react-router-dom';
+import Sidebar from './components/Sidebar.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import PublisherAdd from './components/Publisher/publisherCreate';
+import AdvertiserAdd from './components/ADVERTISER/advertiserCreate'
+import Offertable from './components/offers/offertable';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Table from './components/Card/Table';
+import CTable from './components/Conversion/Ctable';
+import Publisher from './components/Publisher';
+import Advertiser from './components/ADVERTISER';
+import Conversion from './components/Payout/PayoutTable';
+// import Performance from './components/Revenue/Performance';
+import OfferCreatea from './components/offers/createoffer/createoffer';
+import Viewdata from './components/offers/viewdata';
+import Viewdata2 from './components/offers/viewdata/viewpage';
+import PublisherDropdownList from "./components/offers/viewdata/box2";
+import Tracking from './components/offers/viewdata/tracking';
+import TrackingEdit from './components/offers/viewdata/trackingEdit';
+import SendLog from './components/Payout/PayoutTable/sendlog';
+import PixelLog from './components/Payout/PixelLog/pixel';
+import PublisherDetail from './components/Publisher/PublisherDetail/index';
+import OfferDetails from './components/offers/OfferDetail/index';
+// import ConversionRateCard from './components/ConversionRate';
+// import ConversionRateTable from './components/ConversionRate/ConTable';
+// import ProfitCard from './components/Profit';
+// import ProfitTable from './components/Profit/Profittable';
+import { PrivateRoute } from './components/PrivateRoute';
+import store from './Redux/store'
+import { Provider } from 'react-redux'
+import { ToastContainer } from 'react-toastify';
+import PostBackManagement from './components/PostBackMangement';
+import Addpostback from './components/PostBackMangement/postbackCreate';
+import PostbackDetail from './components/PostBackMangement/postbackDetail';
+import LandingPage from './components/LandingPage';
+import CreateLandingPage from './components/LandingPage/createLanding';
+import UpdateLanding from './components/LandingPage/Edit';
+import ImpressionList from './components/Impression/ImpressionList';
+import AdvertiserLogin from './components/AdvertiserDashboard/Login';
+import AdvertiserDashboard from './components/AdvertiserDashboard/Dashboard';
+import ForgotPassword from './components/AdvertiserDashboard/Login/ForgotPassword';
+import AdvitiserVerifyOtp from './components/AdvertiserDashboard/Login/VerifyOtp';
+import ResetPassword from './components/AdvertiserDashboard/Login/ResetPassword';
+import PublisherSignup from './pages/PublisherDashboard/Signup';
+import PublisherDashboard from './pages/PublisherDashboard/Dashboard';
+import AdminClients from './components/AdvertiserDashboard/Clients';
+import PublisherOffers from './pages/PublisherDashboard/Offers';
+import PublisherConversion from './pages/PublisherDashboard/Conversion';
+import PublisherImpression from './pages/PublisherDashboard/Impression';
+import PublisherPostback from './pages/PublisherDashboard/Postback';
+import Manager from './components/Manager';
+import AddManager from './components/Manager/managerCreate';
+import PublisherOfferDetails from './pages/PublisherDashboard/Offers/OfferDetails';
+import PublisherLandingPage from './pages/PublisherDashboard/LandingPage';
+import PublisherLandingPageList from './pages/PublisherDashboard/LandingPage';
+import CreatePublisherLandingPage from './pages/PublisherDashboard/LandingPage/createLanding';
+import UpdatePublisherLanding from './pages/PublisherDashboard/LandingPage/Edit';
+import ThemeCoustmize from './pages/Setting';
+import MobileAppTracking from './pages/Integration';
+import AppsFlyer from './pages/Integration/AppsFlyer';
+import ManagerLogin from './pages/ManagerDashboard/Login';
+import ManagerDashboard from './pages/ManagerDashboard/Dashboard';
+import ManagerPublisherList from './pages/ManagerDashboard/ManagerPublisherList';
+import ManagerPublisherDetail from './pages/ManagerDashboard/ManagerPublisherList/ManagerPublisherDetails';
+import ManagerClickList from './pages/ManagerDashboard/ManagerClickList';
+import ManagerConversionList from './pages/ManagerDashboard/Conversion';
+import ManagerImpressionList from './pages/ManagerDashboard/Impression';
+import ManagerPublisherCreate from './pages/ManagerDashboard/ManagerPublisherList/ManagerPublisherCreate';
+import Singular from './pages/Integration/Singular';
+import Adjust from './pages/Integration/Adjust';
+import AppMetrica from './pages/Integration/AppMetrica';
+import Branch from './pages/Integration/Branch';
+import Kochava from './pages/Integration/Kochava';
+import CreateEventValue from './components/EventValue/createEventValue';
+import EventValueList from './components/EventValue';
+import UpdateEvent from './components/EventValue/Edit';
+import PublisherPerformance from './pages/PublisherDashboard/Performance';
+import PublisherClicks from './pages/PublisherDashboard/Clicks';
+import PerformanceReport from './pages/Performance';
+import PublisherSentLog from './pages/PublisherDashboard/PubSentLog';
+import Profile from './components/Profile';
+import PageNotFound from './pages/PageNotFound';
+import Footer from './components/Footer';
+import ClientsDetails from './components/AdvertiserDashboard/Clients/ClientsDetails';
+import PublisherProfile from './pages/PublisherDashboard/Profile/index.jsx';
+import ManagerProfile from './pages/ManagerDashboard/Profile/index.jsx';
+import PublisherPostbackList from './pages/PublisherDashboard/Postback';
+import PublisherPostbackAdd from './pages/PublisherDashboard/Postback/Create/index.jsx';
+import ManagerOferList from './pages/ManagerDashboard/Offer/index.jsx';
+import ManagerrPostbackList from './pages/ManagerDashboard/Postback/index.jsx';
+import ManagerPostbackAdd from './pages/ManagerDashboard/Postback/Create/index.jsx';
+import ManagerOfferDetails from './pages/ManagerDashboard/Offer/OfferDetails/index.js';
+import AddCategory from './components/offers/offertable/AddCategory.jsx';
+import AddVertical from './components/offers/offertable/AddVertical.jsx';
+import AddTraffic from './components/offers/offertable/AddTraffic.jsx';
+import { Spinner } from 'react-bootstrap';
+import PartnerForgotPassword from './components/Login/ForgotPassword.jsx';
+import PartnerVerifyOtp from './components/Login/PartnerVerifyOtp.jsx';
+import PartnerResetPassword from './components/Login/ResetPassword.jsx';
+import ManagerPerformance from './pages/ManagerDashboard/Performance/index.jsx';
+import RequestOffer from './components/offers/offertable/RequestOffer.jsx';
+import RequestOfferList from './components/offers/offertable/RequestOfferList.jsx';
+import PublisherApprovedOffers from './pages/PublisherDashboard/Offers/MyOffer.jsx';
+import PublisherApprovedOffersList from './pages/PublisherDashboard/Offers/MyOffer.jsx';
+import PublisherApprovedOfferDetails from './pages/PublisherDashboard/Offers/OfferDetails/ApproveOffer.js';
+
+const App = () => {
+
+  const sidebarColor = localStorage.getItem('bgColorSidebar');
+  const loggedUserData = JSON.parse(localStorage.getItem('userData'))
+  const contrastColorText = (color)=> {
+      // Type of color is hex eg-"#270c0c"
+      // check that color is dark or not and add class to body accordingly
+      // Convert hex to RGB
+  const hexToRgb = (hex) => {
+      // Remove the hash if it exists
+      hex = hex.replace(/^#/, '');
+      // Parse the RGB values
+      const bigint = parseInt(hex, 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return { r, g, b };
+  }
+  // Calculate the perceived luminance of a color
+  const calculateLuminance = (rgb) => {
+      const { r, g, b } = rgb;
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      return luminance;
+  };
+  // Check if the color is dark
+  const isDarkColor = (color) => {
+      const rgb = hexToRgb(color);
+      const luminance = calculateLuminance(rgb);
+      return luminance < 0.5; // You can adjust this threshold as needed
+  };
+  // Get the body element
+  const body = document.body;
+
+  // Add a class based on the color's darkness
+  if (isDarkColor(color)) {
+      body.classList.add('dark-background');
+  } else {
+      body.classList.remove('dark-background');
+  }
+  }
+useEffect(()=> {
+  if(sidebarColor){
+  contrastColorText(sidebarColor)
+}
+  console.log('sidebarbgcolor', sidebarColor)
+},[])
+  return (
+    <div className='App'>
+    <div className='skeleton-container'>
+      <div className='spinner'>
+      <Spinner animation="border" />
+    </div>
+    </div>
+    <ToastContainer />
+    <Provider store={store}>
+      <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path='/dashboard' redirectPath="/" 
+            element={<PrivateRoute redirectPath="/"><Dashboard /></PrivateRoute>} />
+            <Route path="/forgotPassword" element={<PartnerForgotPassword />} />
+            <Route path="/verify" element={<PartnerVerifyOtp />} />
+            <Route path="/resetPassword" element={<PartnerResetPassword />} />
+            <Route path="/partner/signup" element={<Signup />} />
+            <Route path="statistics/click" element={<Table />} />
+            <Route path="/conversion" element={<Conversion />} />
+            <Route path="/performance" element={<PerformanceReport />} />
+            <Route path="statistics/conversion" element={<CTable />} />
+            <Route path="/add_offers" element={<OfferCreatea />} />
+            <Route path="/add_category" element={<AddCategory />} />
+            <Route path="/add_vertical" element={<AddVertical />} />
+            <Route path="/add_traffic" element={<AddTraffic />} />
+            <Route path="/offers" element={<Offertable />} />
+            <Route path="/request_offerList" element={<RequestOfferList />} />
+            <Route path="/request_offer" element={<RequestOffer />} />
+            <Route path="/offer/:id" element={<OfferDetails />}></Route>
+            <Route path="/advertiser" element={<Advertiser />} />
+            <Route path="/publisher" element={<Publisher />} />
+            <Route path='/publisher/:id' element={<PublisherDetail />} />
+            <Route path="/advertiseradd" element={<AdvertiserAdd />} />
+            <Route path="/publisheradd" element={<PublisherAdd />} />
+            <Route path="/publisherdetails/:id" component={PublisherDropdownList} />
+            <Route path="/createoffer/:id" element={<OfferCreatea />} />
+            <Route path="/viewdata" element={<Viewdata />} />
+            <Route path="/viewdata2/:offerId" element={<Viewdata2 />} />
+            <Route path="trackingEdit" element={<TrackingEdit />} />
+            <Route path="/tracking" element={<Tracking/>} />
+            <Route path="/conversion/sentlogs" element={<SendLog/>} />
+            <Route path="/conversion/pixel_logs" element={<PixelLog/>} />
+            <Route path="/postback" element={<PostBackManagement />} />
+            <Route path="/postbackadd" element={<Addpostback />} />
+            <Route path="/postback/:id" element={<PostbackDetail />} />
+            <Route path="/landingPages" element={<LandingPage />} />
+            <Route path="/eventValue" element={<EventValueList />} />
+            <Route path="/eventValue/add" element={<CreateEventValue />} />
+            <Route path='/eventValue/edit/:id' element={<UpdateEvent />} />
+            <Route path='/landingPages/edit/:id' element={<UpdateLanding />} />
+            <Route path="/landingPages/add" element={<CreateLandingPage />} />
+            <Route path='/impression' element={<ImpressionList />} />
+            <Route path='/manager' element={<Manager />} />
+            <Route path='/addmanager' element={<AddManager />} />
+            <Route path='/setting/customize' element={<ThemeCoustmize />} />
+            <Route path='/setting/profile' element={<Profile />} />
+            <Route path='/integrate/apptracking' element={<MobileAppTracking />} />
+            <Route path='/integrate/appsflyer' element={<AppsFlyer />} />
+            <Route path='/integrate/singular' element={<Singular />} />
+            <Route path='/integrate/adjust' element={<Adjust />} />
+            <Route path='/integrate/appmetrica' element={<AppMetrica />} />
+            <Route path='/integrate/branch' element={<Branch />} />
+            <Route path='/integrate/kochava' element={<Kochava />} />
+            <Route path='/404-page' element={<PageNotFound />} />
+            <Route path='/footer' element={<Footer />} />
+            <Route path='/v2'>
+              <Route path='login' element={<AdvertiserLogin />}></Route>
+              <Route path='dashboard' element={<AdvertiserDashboard />}></Route>
+              <Route path="forgotpassword" element={<ForgotPassword />}></Route>
+              <Route path="varifyotp" element={<AdvitiserVerifyOtp />}></Route>
+              <Route path='resetpassword' element={<ResetPassword />}></Route>
+              <Route path='clients' element={<AdminClients />} />
+              <Route path='client/details/:id' element={<ClientsDetails />} />
+            </Route>
+            <Route path='/publisher'>
+              <Route path='signup' element={<PublisherSignup />} />
+              <Route path='dashboard' element={<PublisherDashboard />} />
+              <Route path='offers' element={<PublisherOffers />} />
+              <Route path='offerApproved' element={<PublisherApprovedOffersList />} />
+              <Route path="offer/:id" element={<PublisherOfferDetails />} />
+              <Route path="approvedOffer/:id" element={<PublisherApprovedOfferDetails />} />
+              <Route path='conversion' element={<PublisherConversion />} />
+              <Route path='clicks' element={<PublisherClicks />} />
+              <Route path='sentlog' element={<PublisherSentLog />} />
+              <Route path='performance' element={<PublisherPerformance />} />
+              <Route path='impression' element={<PublisherImpression />} />
+              <Route path='postback' element={<PublisherPostbackList/>} />
+              <Route path='postback/add' element={<PublisherPostbackAdd/>} />
+              <Route path='landingPages' element={<PublisherLandingPageList />} />
+              <Route path='landingPages/add' element={<CreatePublisherLandingPage />} />
+              <Route path='landingPages/edit/:id' element={<UpdatePublisherLanding />} />
+              <Route path='profile' element={<PublisherProfile />} />
+            </Route>
+            <Route path='/manager'>
+              <Route path='login' element={<ManagerLogin />}></Route>
+              <Route path='dashboard' element={<ManagerDashboard />} />
+              <Route path='offer' element={<ManagerOferList />} />
+              <Route path='offer/:id' element={<ManagerOfferDetails />} />
+              <Route path='publishers' element={<ManagerPublisherList />} />
+              <Route path='addpublisher' element={<ManagerPublisherCreate />} />
+              <Route path='publisherdata/:id' element={<ManagerPublisherDetail />} />
+              <Route path='clicks' element={<ManagerClickList />} />
+              <Route path='conversion' element={<ManagerConversionList />} />
+              <Route path='performance' element={<ManagerPerformance />} />
+              <Route path='impression' element={<ManagerImpressionList />} />
+              <Route path='postback' element={<ManagerrPostbackList />} />
+              <Route path='postback/add' element={<ManagerPostbackAdd />} />
+              <Route path='profile' element={<ManagerProfile />} />
+            </Route>
+            <Route path='/'></Route>
+            {/* <Route path="/conversionRateCard" element={<ConversionRateCard/>} />
+            <Route path="/conversionRateTable" element={<ConversionRateTable/>} />
+            <Route path="/profitCard" element={<ProfitCard/>} />
+            <Route path="/profitTable" element={<ProfitTable/>} /> */}
+          </Routes>
+      </BrowserRouter>
+    </Provider>
+    </div>
+  );
+};
+
+export default App;

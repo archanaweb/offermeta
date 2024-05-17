@@ -1,0 +1,103 @@
+
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Adjust the column widths as needed */
+    gap: 1rem;
+    /* Adjust the gap between columns as needed */
+}
+.Container_add{
+  display: flex;
+  justify-content: center;
+  width: 500px;
+}
+.form-column {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.popup-overlay {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 605px;
+    height: 244px;
+    bottom: 0;
+    width: 395px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 9999;
+}
+
+.Bttn {
+    margin-left: 33px;
+    margin-top: 22px;
+}
+
+.slider-toggle {
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .slider {
+    width: 26px;
+    height: 26px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .slider-toggle.on {
+    background-color: #2ecc71;
+  }
+  
+  .slider-toggle.on .slider {
+    transform: translateX(30px);
+  }
+  
+  .slider-toggle.off {
+    background-color: #ccc;
+  }
+  
+  .slider-toggle.off .slider {
+    transform: translateX(2px);
+  }
+  
+
+
+.texxt {
+    width: 100%;
+    padding: 5px;
+    margin-top: 4px;
+}
+
+.popup-content {
+    position: absolute;
+    top: 0;
+    right: -200px;
+    /* Adjust the value to hide the content initially */
+    width: 300px;
+    /* Match the width of the overlay */
+    height: 100%;
+    background-color: #fff;
+    /* Adjust the background color */
+    padding: 20px;
+    transition: right 0.3s ease-in-out;
+}
+
+input[text] {
+    width: 80;
+}
+
+button {
+    width: auto;
+}

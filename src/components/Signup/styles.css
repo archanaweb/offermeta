@@ -1,0 +1,32 @@
+.signup-container1 {
+  width: 500px;
+  border-style: none;
+  padding: 2rem;
+  border-radius: .8em;
+  background-color: #fff;
+}
+.signup-container2{
+  width:70%;
+}
+
+h2 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+.login-wraper {
+  height: 100vh;
+}
+
+.signupLogo{
+  height: 70px;
+  width: auto;
+}

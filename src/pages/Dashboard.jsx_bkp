@@ -1,0 +1,215 @@
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Container } from 'react-bootstrap';
+import Card from '../components/Card/index';
+import CardConvertion from '../components/Conversion';
+import PayoutCard from '../components/Payout';
+import RevenueCard from '../components/Revenue';
+import ConversionRateCard from '../components/ConversionRate';
+// import ProfitCard from '../components/Profit';
+import Sidebar from '../components/Sidebar';
+import Navbar from '../components/navbar';
+import { useNavigate } from 'react-router-dom';
+import PageTitle from '../components/PageTitle';
+import Impression from '../components/Impression';
+import TotalProfit from '../components/Profit';
+import TotalChart from '../components/Chart';
+import TopAdvertiser from '../components/TopAdvertiser';
+import BASE_URL from '../Api/base';
+import EventData from '../components/EventValue/EventData';
+
+const Dashboard = () => {
+
+  const [clickData, setClickData] =  useState({})
+  const [conversionData, setConversionData] =  useState({})
+  const [payoutData, setPayoutData] =  useState({})
+  const [revenueData, setRevenueData] =  useState({})
+  const [profitData, setProfitData] =  useState({})
+  const [crateData, setCrateData] =  useState({})
+  const [impressionData, setImpressionData] =  useState({})
+  const [eventData, setEventData] =  useState({})
+  const [showCard, setShowCard]= useState(false)
+
+  const loggedInUser = JSON.parse(localStorage.getItem('userData'))
+  const subadminId = loggedInUser._id
+
+  const fetchClickData = async ()=> {
+    const res = await fetch(`${BASE_URL}tracking/ClickData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    setClickData(resData.responseResult)
+  }
+  const fetchConversionData = async ()=> {
+    const res = await fetch(`${BASE_URL}conversion/conversionData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    console.log("conversionData>><<",resData);
+    setConversionData(resData)
+  }
+  
+  const fetchCrateData = async ()=> {
+    const res = await fetch(`${BASE_URL}conversion/conversionRateData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    console.log("conversionRateData>><<",resData);
+    setCrateData(resData)
+  }
+  const fetchPayoutData = async ()=> {
+    const res = await fetch(`${BASE_URL}conversion/payoutData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    console.log("payoutData>><<",resData);
+    setPayoutData(resData)
+  } 
+  const fetchRevenueData = async ()=> {
+    const res = await fetch(`${BASE_URL}conversion/revenueData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    console.log("revenveData>><<",resData);
+    setRevenueData(resData)
+  }
+  
+  const fetchProfitData = async ()=> {
+    const res = await fetch(`${BASE_URL}conversion/profitData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    console.log("profitData>><<",resData);
+    setProfitData(resData)
+  }
+  const fetchImpressionData = async ()=> {
+    const res = await fetch(`${BASE_URL}impression/impressionData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    console.log("impressionData>><<",resData);
+    setImpressionData(resData.responseResult)
+  }
+  const fetchEventData = async ()=> {
+    const res = await fetch(`${BASE_URL}conversion/totalEventData?partners_Id=${subadminId}`)
+    const resData = await res.json();
+    console.log("eventData>><<",resData);
+    setEventData(resData.responseResult)  
+  }
+
+  useEffect(()=>{
+    fetchClickData()
+    fetchConversionData()
+    fetchPayoutData()
+    fetchRevenueData()
+    fetchProfitData()
+    fetchCrateData()
+    fetchImpressionData()
+    fetchEventData()
+  },[])
+  useEffect(()=>{
+    console.log('eventREs', eventData)
+  },[eventData])
+
+  return (
+    <div className='Container-fluid'>
+      <Sidebar>
+        <Navbar />
+        <div className='page_sec  p-0'>
+          <PageTitle/>
+          <div className='container'>
+                <Row>
+                  <Col xs={12} md={6} lg={4} >
+                    <Card
+                      title="Click"
+                      yesterdayData={clickData?.yesterdayClicks ? clickData?.yesterdayClicks: '0'}
+                      currentmonthData={clickData?.lastWeekClicks? clickData?.lastWeekClicks: '0'}
+                      lastmonthData={clickData?.lastMonthClicks ? clickData?.lastMonthClicks : '0'}
+                      today={clickData?.todayClicks ? clickData?.todayClicks : '0'}
+                    />
+                  </Col>
+                  <Col xs={12} md={6} lg={4}>
+                    <CardConvertion
+                      title="Conversion"
+                      yesterdayData={conversionData?.yesterdayConversion ? conversionData?.yesterdayConversion: '0'}
+                      currentmonthData={conversionData?.lastWeekConversion ? conversionData?.lastWeekConversion : '0'}
+                      lastmonthData={conversionData?.lastMonthConversion ? conversionData?.lastMonthConversion : '0'}
+                      today={conversionData.todayConversion ?conversionData.todayConversion : '0'}
+                    />
+                  </Col>
+                  <Col xs={12} md={6} lg={4}>
+                    <ConversionRateCard
+                      title="CR"
+                      yesterdayData={crateData.yesterdayTotalConversion ? crateData.yesterdayTotalConversion : '0'}
+                      currentmonthData={crateData.lastweekotalConversion ? crateData.lastweekotalConversion : '0'}
+                      lastmonthData={crateData.lastMonthConversion ? crateData.lastMonthConversion :'0'}
+                      today={crateData.todayTotalConversion ? crateData.todayTotalConversion : '0'}
+                    />
+                  </Col>
+                  
+                  <Col xs={12} md={6} lg={4}>
+                    <RevenueCard
+                      title="Revenue"
+                      yesterdayData={revenueData.yesterdayTotalRevenue ? revenueData.yesterdayTotalRevenue :'0'}
+                      currentmonthData={revenueData?.lastweekTotalRevenue? revenueData?.lastweekTotalRevenue: '0'}
+                      today={revenueData?.todayTotalRevenue ? revenueData?.todayTotalRevenue : '0'}
+                    />
+                  </Col>
+                  <Col xs={12} md={6} lg={4}>
+                    <PayoutCard
+                      title="Payout"
+                      yesterdayData={payoutData?.yesterdayTotalPayout ? payoutData?.yesterdayTotalPayout :'0'}
+                      currentmonthData={payoutData?.lastWeekTotalPayout ? payoutData?.lastWeekTotalPayout : '0'}
+                      today={payoutData?.todayTotalPayout ? payoutData?.todayTotalPayout : '0'}
+                    />
+                  </Col>
+                  <Col xs={12} md={6} lg={4}>
+                    <TotalProfit
+                      title="Profit"
+                      yesterdayData={profitData?.yesterdayTotalProfit ? profitData?.yesterdayTotalProfit : '0'}
+                      currentmonthData={profitData?.lastweekTotalProfit ? profitData?.lastweekTotalProfit : '0'}
+                      today={profitData?.todayTotalProfit ? profitData?.todayTotalProfit : '0'} 
+                    />
+                  </Col>
+                  {showCard && <> <Col xs={12} md={6} lg={4}>
+                    <Impression
+                      title="Impression"
+                      today={impressionData?.todayClicks ? impressionData?.todayClicks : '0'}
+                      yesterdayData={impressionData?.yesterdayClicks ? impressionData.yesterdayClicks : '0'}
+                      currentmonthData={impressionData?.lastWeekClicks ? impressionData.lastWeekClicks :'0'}
+                      lastmonthData={impressionData?.lastMonthClicks ? impressionData.lastMonthClicks : '0'}
+
+                    />
+                  </Col>
+                  
+                  <Col xs={12} md={6} lg={4}>
+                    <EventData title="Event"
+                     today={eventData.todayEvent ? eventData.todayEvent : '0'}
+                     yesterdayData={eventData?.yesterdayEvent ? eventData.yesterdayEvent : '0'}
+                     currentmonthData={eventData?.lastWeekEvent ? eventData.lastWeekEvent : '0'}
+                     lastmonthData={eventData?.lastMonthClicks ? eventData.lastMonthClicks : '0'} />
+                  </Col></>}
+                  {<div className='d-flex justify-content-end position-relative'>
+                  <button className="moreCard position-absolute" style={{top: '-18px'}} onClick={()=> setShowCard(!showCard)}>{!showCard ? 'Show More>>': '<<Show Less'}</button>
+                  </div>}
+                </Row>
+                <div className="row mt-4">
+                    <div className="col-lg-12">
+                        <TotalChart />
+                    </div>
+                </div>
+                <div className="row mt-4">
+                    <div className="col-lg-12">
+                    <TopAdvertiser title="Top Offers" />
+                    </div>
+                </div>
+
+                <div className="row mt-4">
+                    <div className="col-lg-12">
+                    <TopAdvertiser title="Top Publisher"  />
+                    </div>
+                </div>
+                <div className="row mt-4">
+                    <div className="col-lg-12">
+                    <TopAdvertiser title="Top Advertiser" />
+                    </div>
+                </div>
+                <div className="row mt-4">
+                    <div className="col-lg-12">
+                    <TopAdvertiser title="Top Manager" />
+                    </div>
+                </div>
+               
+          </div>
+        </div>
+      </Sidebar>
+    </div>
+  );
+};
+
+export default Dashboard;

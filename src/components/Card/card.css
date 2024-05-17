@@ -1,0 +1,23 @@
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-style:none;
+}
+  
+  .card {
+    width:100%;
+    margin-bottom: 20px;
+    border: 1.4px solid #E8EAEE;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-content {
+    /* Content styles */
+    padding: 10px;
+  }
+  

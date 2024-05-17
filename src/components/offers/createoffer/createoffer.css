@@ -1,0 +1,156 @@
+.form {
+  height: auto;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Adjust the column widths as needed */
+  gap: 1rem;
+  /* Adjust the gap between columns as needed */
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.signup-container {
+  width: 800px;
+  margin: 6px 21px;
+  border-color: black;
+  padding: 1.5em;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 4px 4px 14px #0000003d;
+}
+
+input:active {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -30px 36px -28px inset;
+
+}
+
+.popup-overlay {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 605px;
+  height: 244px;
+  bottom: 0;
+  width: 395px;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  z-index: 9999;
+}
+
+.Bttn {
+  margin-left: 33px;
+  margin-top: 22px;
+}
+
+.slider-toggle {
+  width: 60px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  position: relative;
+}
+
+.slider {
+  width: 26px;
+  height: 26px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease-in-out;
+
+
+}
+
+.slider-toggle.on {
+  background-color: #2ecc71;
+}
+
+.slider-toggle.on .slider {
+  transform: translateX(30px);
+}
+
+.slider-toggle.off {
+  background-color: #ccc;
+}
+
+.slider-toggle.off .slider {
+  transform: translateX(2px);
+}
+
+
+
+.texxt {
+  width: 100%;
+  padding: 5px;
+  margin-top: 4px;
+  border-style: solid;
+  border-radius: 34px;
+  height: 45px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 2px, rgba(0, 0, 0, 0.05) 0px 0.5px 1px;
+
+}
+
+.texxt:hover {
+  width: 100%;
+  padding: 5px;
+  margin-top: 4px;
+  border-style: solid;
+  border-radius: 34px;
+  height: 45px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -30px 36px -28px inset;
+}
+
+.popup-content {
+  position: absolute;
+  top: 0;
+  right: -200px;
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  padding: 20px;
+  transition: right 0.3s ease-in-out;
+  background: rgb(145,190,244);
+background: linear-gradient(341deg, rgba(145,190,244,1) 0%, rgba(245,248,250,1) 46%, rgba(245,212,239,0.9836309523809523) 100%);
+}
+
+input[text] {
+  width: 80;
+}
+
+button {
+  width: auto;
+}
+.popup-content {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Btttn,
+.Bttn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.Btttn {
+  margin-right: 10px;
+}
+
+.Bttn {
+  background-color: #f44336;
+  color: #fff;
+}

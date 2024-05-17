@@ -1,0 +1,126 @@
+
+.container_table{
+    margin:1em;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    /* height: 50em; */
+    
+    }
+    .table-container {
+      margin: 0 auto;
+      padding: 20px;
+      height: auto;
+      overflow: scroll;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+    
+   
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      text-align: left;
+    }
+    .containerdate{
+      margin-top: 10px;
+      flex-grow: 1;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+    .links-container {
+      margin-top: 20px;
+      display: flex;
+      /* justify-content: space-between; */
+      gap: 10px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      height:50px;
+    }
+    
+    .links-container a {
+      margin-right: 10px;
+      margin-top: 18px;
+      margin-left: 10px;
+    }
+    
+    .select-fields-container {
+      margin-top: 20px;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+    
+    
+    /* input[type="text"],
+    select {
+      width: 200px;
+      padding: 5px;
+    } */
+    
+    
+    .row {
+      display: flex;
+    }
+    
+    .row > * {
+      margin-right: 10px;
+      
+    }
+    
+    .d-flex {
+      display: flex;
+    }
+    
+    .justify-content-end {
+      justify-content: flex-end;
+    }
+    
+    .containerdate {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .date-field {
+      /* flex: 1; */
+      display: flex;
+      align-items: left;
+      width: 12em;
+    }
+    
+    .button-container {
+      display: flex;
+      gap: 10px; /* Adjust the gap as needed */
+    }
+    
+    .button {
+      padding: 5px 10px;
+      background-color: #e0e0e0;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .button:hover {
+      background-color: #d0d0d0;
+    }
+
+    /* #CreateButton {
+      background-color: #033566;
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-left: 20em;
+      margin-top: -0.00005em;
+    } */
+    #CreateButton:hover{
+      background-color: #041a30;
+    }
